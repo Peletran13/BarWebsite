@@ -13,7 +13,6 @@ import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/BarWebsite/', // Add this line for GitHub Pages
   plugins: [
     VueRouter({
       dts: 'src/typed-router.d.ts',
