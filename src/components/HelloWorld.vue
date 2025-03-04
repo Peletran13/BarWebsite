@@ -209,7 +209,7 @@ const scrollToMenu = () => {
 
       <!-- Navigation buttons on the right -->
       <div class="nav-buttons">
-        <v-btn variant="text" class="nav-btn" @click="scrollToMenu">Menu</v-btn>
+        <v-btn variant="text" class="nav-btn" @click="scrollToMenu">Menú</v-btn>
         <v-btn variant="text" class="nav-btn" @click="scrollToContact"
           >Contacto</v-btn
         >
@@ -220,7 +220,7 @@ const scrollToMenu = () => {
 
     <div class="hero-container">
       <v-img
-        :src="'/src/assets/Images/patrick-tomasso-GXXYkSwndP4-unsplash.jpg'"
+        src="/src/assets/Images/patrick-tomasso-GXXYkSwndP4-unsplash.jpg"
         cover
         class="hero-image"
         :class="{ reveal: imageLoaded }"
@@ -253,7 +253,7 @@ const scrollToMenu = () => {
 
     <!-- Menu Section -->
     <div id="menu-section" class="menu-section">
-      <h2 class="section-title">Menu</h2>
+      <h2 class="section-title">Menú</h2>
       <div class="menu-categories">
         <v-card
           @click="bebidasDialog = true"
