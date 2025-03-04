@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import router from "@/router";
 import { onMounted, ref } from "vue";
 interface Drink {
   name: string;
@@ -19,7 +20,9 @@ interface Dessert {
 const bebidasDialog = ref(false);
 const comidaDialog = ref(false);
 const postresDialog = ref(false);
-
+const toEventos = () => {
+  router.push("/eventos");
+};
 // Leches y Milkshakes
 const otrasBebidas = ref<Drink[]>([
   { name: "Leche Chocolatada", price: 7000 },
@@ -156,13 +159,26 @@ const cafesTes = ref<Dessert[]>([
 const imageLoaded = ref(false);
 const textAnimated = ref(false);
 
+// In the <script setup> section, add this function to scroll to contact section
+const scrollToContact = () => {
+  document.getElementById("location-section")?.scrollIntoView({
+    behavior: "smooth",
+  });
+};
+
+// Add a function for WhatsApp redirect (add this with your other functions)
+const toWhatsApp = () => {
+  window.open("https://wa.me/595981123456", "_blank"); // Replace with your actual number
+};
+
+// Update the onMounted function to reduce animation delay times
 onMounted(() => {
   setTimeout(() => {
     imageLoaded.value = true;
     setTimeout(() => {
       textAnimated.value = true;
-    }, 800);
-  }, 300);
+    }, 300);
+  }, 100);
 });
 
 // Function to scroll to menu section
@@ -184,7 +200,7 @@ const scrollToMenu = () => {
             alt="Restaurant Logo"
             class="restaurant-logo"
           />
-          <span class="logo-text">Restaurant Name</span>
+          <span class="logo-text">Nombre</span>
         </div>
       </template>
 
@@ -194,14 +210,12 @@ const scrollToMenu = () => {
       <!-- Navigation buttons on the right -->
       <div class="nav-buttons">
         <v-btn variant="text" class="nav-btn" @click="scrollToMenu">Menu</v-btn>
-        <v-btn variant="text" class="nav-btn">Contact</v-btn>
-        <v-btn variant="text" class="nav-btn">Information</v-btn>
+        <v-btn variant="text" class="nav-btn" @click="scrollToContact"
+          >Contacto</v-btn
+        >
       </div>
       <!--  -->
       <!-- Mobile menu button, only visible on small screens -->
-      <template v-slot:append>
-        <v-app-bar-nav-icon class="d-md-none"></v-app-bar-nav-icon>
-      </template>
     </v-app-bar>
 
     <div class="hero-container">
@@ -224,22 +238,22 @@ const scrollToMenu = () => {
       </div>
 
       <!-- Fixed down arrow to indicate scrolling -->
-      <div
-        class="scroll-indicator"
-        :class="{ appear: textAnimated }"
-        @click="scrollToMenu"
-      >
-        <div class="arrow-down">
-          <v-icon icon="mdi-chevron-down" size="large"></v-icon>
+      <v-row justify="center">
+        <div
+          class="scroll-indicator"
+          :class="{ appear: textAnimated }"
+          @click="scrollToMenu"
+        >
+          <div class="arrow-down">
+            <v-icon icon="mdi-chevron-down" size="large"></v-icon>
+          </div>
         </div>
-      </div>
+      </v-row>
     </div>
 
     <!-- Menu Section -->
     <div id="menu-section" class="menu-section">
-      <h2 class="section-title">Our Menu</h2>
-      <p class="section-subtitle">Discover our signature dishes</p>
-
+      <h2 class="section-title">Menu</h2>
       <div class="menu-categories">
         <v-card
           @click="bebidasDialog = true"
@@ -524,11 +538,11 @@ const scrollToMenu = () => {
         </v-card-text>
       </v-card>
     </v-dialog>
+    <!-- Eventos -->
+
     <!-- Horario Section -->
     <div id="horario-section" class="horario-section">
       <h2 class="section-title">Horarios</h2>
-      <p class="section-subtitle">Estamos esperando tu visita</p>
-
       <div class="horario-container">
         <div class="horario-card">
           <div class="horario-icon">
@@ -549,10 +563,8 @@ const scrollToMenu = () => {
       </div>
     </div>
     <!-- Location/Footer Section -->
-    <div class="location-section">
+    <div id="location-section" class="location-section">
       <h2 class="section-title">Ubicación</h2>
-      <p class="section-subtitle">Encuéntranos fácilmente</p>
-
       <div class="location-container">
         <div class="info-container">
           <h3 class="location-heading">Dirección</h3>
@@ -560,12 +572,13 @@ const scrollToMenu = () => {
           <p class="location-text">Asunción, Paraguay</p>
 
           <h3 class="location-heading mt-6">Contacto</h3>
-          <p class="location-text">Teléfono: (021) 123-456</p>
+          <p class="location-text">Teléfono: 981 123-456</p>
           <p class="location-text">Email: info@restaurantname.com</p>
 
           <div class="social-icons mt-6">
             <v-btn
-              icon="mdi-facebook"
+              @click="toWhatsApp"
+              icon="mdi-whatsapp"
               variant="text"
               color="white"
               class="social-icon"
@@ -578,7 +591,7 @@ const scrollToMenu = () => {
               class="social-icon"
             ></v-btn>
             <v-btn
-              icon="mdi-twitter"
+              icon="mdi-facebook"
               variant="text"
               color="white"
               class="social-icon"
@@ -599,7 +612,7 @@ const scrollToMenu = () => {
         </div>
       </div>
 
-      <div class="footer-bar">
+      <div class="footer-bar mb-n16">
         <p class="copyright">
           © 2025 Restaurant Name. Todos los derechos reservados.
         </p>
@@ -813,8 +826,6 @@ const scrollToMenu = () => {
 .scroll-indicator {
   position: absolute;
   bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
   opacity: 0;
   transition: opacity 1s ease;
   transition-delay: 2s;
